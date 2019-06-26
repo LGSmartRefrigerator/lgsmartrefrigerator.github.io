@@ -1,1 +1,33 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Calendar Application</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="webOSjs-0.1.0/webOS.js"></script>
+	<script type="text/javascript">
+		function getUrlParams() {
+			var params = {};
+			window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+			return params;
+		}
+		
+		function init() {
+			if(webOS.service == undefined) {
+				alert("webOS is undefined!");
+				return;
+	    		}
+			var object = getUrlParams();
+			webOS.service.request("luna://com.webos.service.fridge.calendar", {
+				method: "getCodeFromGoogleAccount",
+				parameters: {
+					"object" : object
+				},
+				onSuccess: function (inResponse) {},
+				onFailure: function (inError) {}
+			});
+		}
+	</script>
+</head>
+<body onload="init();">
+</body>
+</html>
